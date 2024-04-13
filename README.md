@@ -14,7 +14,6 @@ This is a solution to the [Launch countdown timer challenge on Frontend Mentor](
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -32,8 +31,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Add live site URL here](https://jorge-sanchez09.github.io/launch-countdown-timer-main/)
 
 ## My process
 
@@ -44,59 +42,90 @@ Users should be able to:
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- JavaScript
+- [TypeScript](https://www.typescriptlang.org/) - JS with syntax for types
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
+I got a better understanding about responsive design without media queries by relying on css functions such as min() and clamp(). 
+Initially, I struggled to create the animation for the card, but after watching a YouTube video, I found a solution and understood how to implement this feature
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<div class="container__card">
+  <div class="card__top">00</div>
+  <div class="card__bottom">00</div>
+</div>
 ```
 ```css
-.proud-of-this-css {
-  color: papayawhip;
+.card__top, .card__top--flip, 
+.card__bottom, .card__bottom--flip{
+    position: absolute;
+    padding-top: 0.4em;
+    overflow: hidden;
+}
+
+.card__top, .card__top--flip{
+    inset: 0 0 50%;
+    color: hsl(from var(--clr-primary) h s calc(l - 0.04));
+    background-color: var(--clr-neutral-700);
+    border-bottom: 1px solid hsl(235, 16%, 14%);
+}
+
+.card__bottom, .card__bottom--flip{
+    inset: 0;
+    z-index: -1;
+    background-color: var(--clr-neutral-600);
+}
+
+.card__top--flip{
+    transform-origin: bottom;
+    animation: 0.5s linear top-flip;
+}
+
+.card__bottom--flip{
+    transform: rotateX(90deg);
+    transform-origin: center;
+    animation: 0.5s linear 0.5s bottom-flip;
 }
 ```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+const flipCard = (flipCard, time) => {
+    const timeStr = time.toString().padStart(2, '0');
+    const currentValue = flipCard.querySelector('.card__top').textContent;
+    if (timeStr == currentValue)
+        return;
+    const topFlipEl = document.createElement("div");
+    topFlipEl.classList.add("card__top--flip");
+    topFlipEl.innerText = currentValue;
+    const bottomFlipEl = document.createElement("div");
+    bottomFlipEl.classList.add("card__bottom--flip");
+    bottomFlipEl.innerText = timeStr;
+    const topHalfEl = flipCard.querySelector(".card__top");
+    const bottomHalfEl = flipCard.querySelector(".card__bottom");
+    topFlipEl.addEventListener("animationstart", () => {
+        topHalfEl.textContent = timeStr;
+    });
+    topFlipEl.addEventListener("animationend", () => {
+        topFlipEl.remove();
+    });
+    bottomFlipEl.addEventListener("animationend", () => {
+        bottomHalfEl.innerText = timeStr;
+        bottomFlipEl.remove();
+    });
+    flipCard.appendChild(topFlipEl);
+    flipCard.appendChild(bottomFlipEl);
+};
 ```
-
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+I wrote my code using TypeScript for practice, and I hope to keep learning more about this language
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [Youtube](https://www.youtube.com/watch?v=_ZAWOK18jmU&t=3s) - This helped me to implement the animations for the cards and understand what's going on behind 
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@Jorge-sanchez09](https://www.frontendmentor.io/profile/Jorge-sanchez09)
