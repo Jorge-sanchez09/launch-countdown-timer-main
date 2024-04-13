@@ -30,7 +30,7 @@ body{
     padding: 50px 1em;
     color: var(--clr-neutral-100);
     background-color: var(--clr-neutral-800);
-    background-image: url('/images/pattern-hills.svg'), url('/images/bg-stars.svg');
+    background-image: url('../images/pattern-hills.svg'), url('../images/bg-stars.svg');
     background-repeat: no-repeat, repeat;
     background-position: bottom;
 }
