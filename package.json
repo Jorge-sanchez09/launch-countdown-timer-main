@@ -1,0 +1,13 @@
+{
+  "name": "launch-countdown-timer-main",
+  "version": "1.0.0",
+  "description": "Launch countdown timer coding challenge",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Jorge Sánchez",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.4.4"
+  }
+}
